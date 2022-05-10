@@ -55,26 +55,9 @@ function App() {
     draw: [],
     result: "Press deck to start",
   });
-  // const [deckNPC, setDeckNPC] = useState(undefined);
-  // const [deckP, setDeckP] = useState(undefined);
-  // const [cardP, setCardP] = useState(undefined);
-  // const [cardNPC, setCardNPC] = useState(undefined);
-  // const [wonP, setWonP] = useState([]);
-  // const [wonNPC, setWonNPC] = useState([]);
-  // const [draw, setDraw] = useState([]);
-  // const [result, setResult] = useState("Press deck to start");
-
   function slpitDeck() {
     let deck = shuffle(initialDeck);
     const middleIndex = Math.ceil(deck.length / 2);
-
-    // setDeckNPC(deck.slice(0, middleIndex));
-    // setDeckP(deck.slice(-middleIndex));
-    // setWonNPC([]);
-    // setWonP([]);
-    // setResult("Click your deckt to put card");
-    // setCardNPC(undefined);
-    // setCardP(undefined);
     setData((prev) => ({
       ...prev,
       deckNPC: deck.slice(0, middleIndex),
@@ -92,8 +75,6 @@ function App() {
       const cardPc = x.pop();
       const cardNPCc = y.pop();
       setData((prev) => ({ ...prev, cardP: cardPc, cardNPC: cardNPCc }));
-      // setCardP(cardPc);
-      // setCardNPC(cardNPCc);
       checkResults(cardPc, cardNPCc);
     } else if (!x.length || !y.length) {
       if (!x.length && !data.wonP.length) {
@@ -104,48 +85,36 @@ function App() {
       }
       setData((prev) => ({
         ...prev,
-        deckNPC: shuffle((prev) => [...prev, ...data.wonP]),
-        deckP: shuffle((prev) => [...prev, ...data.wonNPC]),
+        deckNPC: shuffle([...prev.deckNPC, ...data.wonNPC]),
+        deckP: shuffle([...prev.deckP, ...data.wonP]),
         wonP: [],
         wonNPC: [],
       }));
-      // setDeckNPC((prev) => shuffle([...prev, ...data.wonP]));
-      // setDeckP((prev) => shuffle([...prev, ...data.wonNPC]));
-      // setWonNPC([]);
-      // setWonP([]);
     }
   }
   function checkResults(x, y) {
     if (x.total > y.total) {
       setData((prev) => ({
         ...prev,
-        wonP: (prev) => [...prev, x, y, ...data.draw],
+        wonP: [...prev.wonP, x, y, ...data.draw],
         draw: [],
         result: "You won",
       }));
-      // setWonP((prev) => [...prev, x, y, ...data.draw]);
-      // setDraw([]);
-      // setResult("You won");
     }
     if (x.total < y.total) {
       setData((prev) => ({
         ...prev,
-        wonNPC: (prev) => [...prev, x, y, ...data.draw],
+        wonNPC: [...prev.wonNPC, x, y, ...data.draw],
         draw: [],
         result: "You lose",
       }));
-      // setWonNPC((prev) => [...prev, x, y, ...data.draw]);
-      // setDraw([]);
-      // setResult("You lose");
     }
     if (x.total == y.total) {
       setData((prev) => ({
         ...prev,
-        draw: (prev) => [...prev, x, y],
+        draw: [...prev.draw, x, y],
         result: "Draw! One more time",
       }));
-      // setDraw((prev) => [...prev, x, y]);
-      // setResult("Draw, pick next card");
     }
   }
   function emptySlot(card) {
