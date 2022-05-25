@@ -1,3 +1,5 @@
+# Cards
+
 · Website created with React, without any kind of design.</br>
 · In this project, I only focused on the mechanical part of the website.</br>
 · A simple card game in which two players draw cards. The card with more strength wins the turn, then takes both cards from the table and places them on a separate deck. After all cards have been dealt out, shuffle the winning cards and use them as our deck.</br>
