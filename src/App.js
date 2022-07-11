@@ -121,7 +121,7 @@ function App() {
     if (card) {
       return card.value + card.symbol;
     }
-    return "Empty";
+    return "";
   }
   function noCards(countDeck) {
     if (countDeck) {
